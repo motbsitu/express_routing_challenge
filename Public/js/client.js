@@ -30,8 +30,10 @@ $.ajax({
 
     songs.forEach(function(song){
       var $li = $('<li></li>');
-      $li.append('<p>'+ song.title +'</p>');
-      $li.append('<p> by: '+ song.artist +'</p>');
+      $li.append('<p>Song Name:'+ song.title +'</p>');
+      $li.append('<p>By: '+ song.artist +'</p>');
+      //append date to DOM
+      $li.append('<p> Date Added: ' + song.newDate +'</p>');
       $('#songs').append($li);
 
     });
