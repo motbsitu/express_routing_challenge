@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 //ROUTES:
 //needs to come after app.use.  New route
-// app.post('/', function(req, res){  //
+// app.post('/', function(req, res){
 //   console.log(req.body);  //print what is in req.body
 //   res.sendStatus(200); //not sending content, but just status code
 // });
@@ -25,8 +25,6 @@ app.use(bodyParser.urlencoded({extended: true}));
 //handle get requests, arguments: what route (root url '/')& what to do - handler/middleware function
 //route
 app.get('/', function(req, res){
-  //console.log(req); //
-   //constructing new date object, response on server tab
 
 //send objects, etc any data, sending response back from server
 
@@ -35,25 +33,19 @@ app.get('/', function(req, res){
   //console.log('filename', filename);
   res.sendFile(filename);
 
-} );
-
+});
 
 
 //place to store - call outside of post request
 var songs = [];
 //console.log(songs);
 
-
 app.post('/songs', function(req, res){
-  //
-  //console.log('filename inside post', filename);
-  //console.log('req.body info ', req.body);
+
   var newSong = req.body;
   //console.log(newSong);
 
   //It should not allow the user to add empty fields.
-    //I don't know how to navigate to html document
-
     var emptyField = function (){
 
         if(newSong.title === "" || newSong.artist === "" ){
@@ -61,14 +53,13 @@ app.post('/songs', function(req, res){
        }
 
      else{
-       //action - push from req.body to end of array
+      //move to next function to see if duplicate
        findDuplicates(songs);
      }
    };
    emptyField();
 
   //It should not allow the user to add duplicate songs.
-  //THIS DOESN'T DO ANYTHING
   var duplicate = false;
 
   function findDuplicates(songs){
@@ -76,7 +67,6 @@ app.post('/songs', function(req, res){
     console.log('in for loop', songs[i]);
       if(newSong.title === songs[i].title && newSong.artist === songs[i].artist ){
         duplicate = true;
-
      }
 
    }
@@ -85,34 +75,13 @@ app.post('/songs', function(req, res){
      res.sendStatus(400);
    }
    else{
-     //action - push from req.body to end of array
-    
+     // //It should add new property for dateAdded  new Date()
      newSong.newDate = new Date();
+    //action - push from req.body to end of array
      songs.push(newSong);
      res.sendStatus(200);
    }
  };
-
-
-
-
-
-//
-
-
-
-
-  //
-  // //It should add new property for dateAdded  new Date()
-    //THIS DOESN'T DO ANYTHING
-
-  console.log('Received a request at ', newDate);
-  //I don't know how to navigate to html document
-  // whathere?.getElementById('submit').onclick = newDate;
-
-
-
-  //console.log('songs', songs);
 
   res.sendStatus(200);
 });
