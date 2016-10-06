@@ -14,7 +14,8 @@ $('form').on('submit', function(event){
     type: 'POST',
     url: '/songs',
     data: formData,
-    success: getSongs  //ask server for songs and load them up
+    success: getSongs,  //ask server for songs and load them up
+    //error: //function to alert error
   });
   $(this).find('input[type=text]').val('');   //clear form
 });

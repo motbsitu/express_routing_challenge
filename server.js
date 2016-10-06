@@ -51,48 +51,67 @@ app.post('/songs', function(req, res){
   var newSong = req.body;
   //console.log(newSong);
 
+  //It should not allow the user to add empty fields.
+    //I don't know how to navigate to html document
+
+    var emptyField = function (){
+
+        if(newSong.title === "" || newSong.artist === "" ){
+          res.sendStatus(400);
+       }
+
+     else{
+       //action - push from req.body to end of array
+       findDuplicates(songs);
+     }
+   };
+   emptyField();
+
   //It should not allow the user to add duplicate songs.
   //THIS DOESN'T DO ANYTHING
-  var findDuplicates = function (){
-     for (var i = 0; i < this.length; i++){
-     console.log('this.title in for loop', this.title.val(''));
-       if(newSong.title !== this.title && newSong.artist !== this.artist ){
-        console.log(newSong);
-        //newSong = newSong;
-      }
-      else{
-        console.log('fail');
-        alert('Enter a NEW song');
-        //res.sendStatus(400);
-      }
-    }
-  };
-findDuplicates(songs);
+  var duplicate = false;
+
+  function findDuplicates(songs){
+    for (var i = 0; i < songs.length; i++){
+    console.log('in for loop', songs[i]);
+      if(newSong.title === songs[i].title && newSong.artist === songs[i].artist ){
+        duplicate = true;
+
+     }
+
+   }
+   if(duplicate){
+     console.log('fail');
+     res.sendStatus(400);
+   }
+   else{
+     //action - push from req.body to end of array
+    
+     newSong.newDate = new Date();
+     songs.push(newSong);
+     res.sendStatus(200);
+   }
+ };
+
+
+
+
 
 //
 
-  //It should not allow the user to add empty fields.
-    //I don't know how to navigate to html document
-    //THIS DOESN'T DO ANYTHING
-  whathere?.getElementById('submit') = function (){
-    var x = what?.getElementById('songInput').value;
-      if(x == ""){
-        alert('Please enter song');
-        return false;
-      };
-  }
+
+
 
   //
   // //It should add new property for dateAdded  new Date()
     //THIS DOESN'T DO ANYTHING
-  var newDate = new Date();
+
   console.log('Received a request at ', newDate);
   //I don't know how to navigate to html document
-  whathere?.getElementById('submit').onclick = newDate;
+  // whathere?.getElementById('submit').onclick = newDate;
 
 
-  //action - push from req.body to end of array
-  songs.push(newSong);
+
   //console.log('songs', songs);
 
   res.sendStatus(200);
